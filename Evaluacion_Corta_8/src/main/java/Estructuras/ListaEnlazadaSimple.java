@@ -5,10 +5,10 @@ import Dominio.Nodo;
  *
  * @author Jefer
  */
-public class Lista {
+public class ListaEnlazadaSimple {
     private Nodo cabeza;
 
-    public Lista() {
+    public ListaEnlazadaSimple() {
         cabeza = null;
     }
     public void insertarInicio(int valor) {
