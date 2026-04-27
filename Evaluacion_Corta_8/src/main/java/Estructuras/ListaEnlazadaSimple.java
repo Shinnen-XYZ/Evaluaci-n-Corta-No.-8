@@ -5,53 +5,79 @@ import Dominio.Nodo;
  *
  * @author Jefer
  */
-public class ListaEnlazadaSimple<T>{
-    private Nodo<T> cabeza;
-    private int tamanio;
-    
-    public ListaEnlazadaSimple(){
-        this.cabeza = null;
-        this.tamanio = 0;
+public class Lista {
+    private Nodo cabeza;
+
+    public Lista() {
+        cabeza = null;
     }
-    public void insertarInicio(T dato){
-        Nodo<T> nuevonodo= new Nodo<>(dato);
-        nuevonodo.siguiente = cabeza;
-        cabeza = nuevonodo;
-        tamanio++; 
+    public void insertarInicio(int valor) {
+        Nodo nuevo = new Nodo(valor);
+        nuevo.siguiente = cabeza;
+        cabeza = nuevo;
     }
-    public void insertarFinal(T dato){
-        Nodo<T> nuevonodo= new Nodo<>(dato);
-        if(cabeza == null){
-            cabeza = nuevonodo;
-        }else{
-            Nodo<T> actual = cabeza;
-            while (actual.siguiente != null){
-                actual = actual.siguiente;
+    public void insertarFinal(int valor) {
+        Nodo nuevo = new Nodo(valor);
+
+        if (cabeza == null) {
+            cabeza = nuevo;
+        } else {
+            Nodo temp = cabeza;
+            while (temp.siguiente != null) {
+                temp = temp.siguiente;
             }
-            actual.siguiente = nuevonodo;
-        }
-        tamanio++;
-    }
-    public void eliminarInicio(){
-        if(cabeza != null){
-            cabeza= cabeza.siguiente;
-            tamanio--;
+            temp.siguiente = nuevo;
         }
     }
-    public void imprimir(){
-        Nodo<T> actual = cabeza;
-        while (actual != null){
-            System.out.println(actual.dato + ">");
+    public void insertarEnPosicion(int valor, int posicion) {
+        Nodo nuevo = new Nodo(valor);
+
+        if (posicion == 0) {
+            insertarInicio(valor);
+            return;
+        }
+
+        Nodo temp = cabeza;
+        for (int i = 0; i < posicion - 1 && temp != null; i++) {
+            temp = temp.siguiente;
+        }
+
+        if (temp != null) {
+            nuevo.siguiente = temp.siguiente;
+            temp.siguiente = nuevo;
+        }
+    }
+    public boolean buscar(int valor) {
+        Nodo temp = cabeza;
+
+        while (temp != null) {
+            if (temp.dato == valor) {
+                return true;
+            }
+            temp = temp.siguiente;
+        }
+        return false;
+    }
+    public boolean eliminar(int valor) {
+        if (cabeza == null) return false;
+
+        if (cabeza.dato == valor) {
+            cabeza = cabeza.siguiente;
+            return true;
+        }
+
+        Nodo actual = cabeza;
+        Nodo anterior = null;
+
+        while (actual != null) {
+            if (actual.dato == valor) {
+                anterior.siguiente = actual.siguiente;
+                return true;
+            }
+            anterior = actual;
             actual = actual.siguiente;
         }
-        System.out.println("Nulo");
+
+        return false;
     }
-    public int getTamanio(){
-        return tamanio;
-    }
-    public void vaciar(){
-        cabeza = null;
-        tamanio = 0;
-    }
-    
 }
