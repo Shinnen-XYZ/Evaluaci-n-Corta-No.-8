@@ -3,8 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Tests;
-import org.junit.Assert;
-import org.junit.Before;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import Estructuras.ListaEnlazadaSimple;
 
@@ -12,24 +11,47 @@ import Estructuras.ListaEnlazadaSimple;
  *
  * @author Jefer
  */
-public class ListaEnlzadaSimpleTest {
-    private ListaEnlazadaSimple<Integer> lista;
-    
-    @Before
-    public void Before(){
-        lista = new ListaEnlazadaSimple<>();
-    }
+public class ListaEnlazadaSimpleTest {
+
     @Test
-    public void testinsertarFinal(){
-        lista.insertarFinal(50);
-        lista.insertarFinal(60);
-        Assert.assertTrue("El tamanio es de 2",2,lista.getTamanio()); 
+    public void testInsertarInicio() {
+        ListaEnlazadaSimple lista = new ListaEnlazadaSimple();
+        lista.insertarInicio(10);
+
+        assertTrue(lista.buscar(10));
     }
+
     @Test
-    public void testinsertarInicio(){
-        lista.insertarInicio(30);
-        lista.insertarInicio(40);
-        Assert.assertTrue("El tamanio es de 2",2,lista.getTamanio()); 
+    public void testInsertarFinal() {
+        ListaEnlazadaSimple lista = new ListaEnlazadaSimple();
+        lista.insertarFinal(20);
+
+        assertTrue(lista.buscar(20));
     }
-    
+
+    @Test
+    public void testInsertarEnPosicion() {
+        ListaEnlazadaSimple lista = new ListaEnlazadaSimple();
+        lista.insertarInicio(1);
+        lista.insertarFinal(3);
+        lista.insertarEnPosicion(2, 1);
+
+        assertTrue(lista.buscar(2));
+    }
+
+    @Test
+    public void testEliminar() {
+        ListaEnlazadaSimple lista = new ListaEnlazadaSimple();
+        lista.insertarFinal(5);
+        lista.eliminar(5);
+
+        assertFalse(lista.buscar(5));
+    }
+
+    @Test
+    public void testBuscarInexistente() {
+        ListaEnlazadaSimple lista = new ListaEnlazadaSimple();
+
+        assertFalse(lista.buscar(100));
+    }
 }
